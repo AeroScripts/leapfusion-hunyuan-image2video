@@ -21,7 +21,8 @@ from utils.model_utils import str_to_dtype
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-def encode_and_save_batch(vae: AutoencoderKLCausal3D, image_file):
+def encode_and_save_batch(vae: AutoencoderKLCausal3D, image_file, resolution):
+    print(resolution)
     batch =  np.array(Image.open(image_file).convert("RGB"))
 
     contents = torch.from_numpy(batch).unsqueeze(0)
@@ -29,7 +30,7 @@ def encode_and_save_batch(vae: AutoencoderKLCausal3D, image_file):
         contents = contents.unsqueeze(1)  # B, H, W, C -> B, F, H, W, C
 
     contents = contents.squeeze(0).squeeze(0).cpu().numpy()
-    contents = cv2.resize(contents, (512, 320), cv2.INTER_LANCZOS4)
+    contents = cv2.resize(contents, (resolution[1], resolution[0]), cv2.INTER_LANCZOS4)
     contents = torch.tensor(contents).unsqueeze(0).unsqueeze(0)
 
     contents = contents.permute(0, 4, 1, 2, 3).contiguous()  # B, C, F, H, W
@@ -66,7 +67,7 @@ def main(args):
     elif args.vae_tiling:
         vae.enable_spatial_tiling(True)
 
-    encode_and_save_batch(vae, args.image)
+    encode_and_save_batch(vae, args.image, args.video_size)
 
 def setup_parser():
     parser = argparse.ArgumentParser()
@@ -84,6 +85,7 @@ def setup_parser():
     )
     parser.add_argument("--device", type=str, default=None, help="device to use, default is cuda if available")
     parser.add_argument("--image", type=str, default=None, help="the image file to encode")
+    parser.add_argument("--video_size", type=int, nargs=2, default=[544, 960], help="video size")
 
     return parser
 

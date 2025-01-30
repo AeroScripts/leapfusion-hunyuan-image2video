@@ -197,7 +197,9 @@ def sample_image2video(model, x, sigmas, extras, extra_args=None, callback=None,
             progress_bar.update()
     
     if target_image is not None:
-        x[:, :, [0,], :, :] = target_image[:, :, [0,], :, :].to(x.dtype).to(x.device)
+        # exclude input image from the result. 
+        # It's usually out of distribution from the rest of the generation and makes the VAE freak out
+        return x[:, :, 1:, :, :]
     return x
 
 def save_images_grid(
@@ -638,7 +640,7 @@ def main():
         if args.attn_mode == "sdpa":
             args.attn_mode = "torch"
 
-        if not os.path.exists("/root/modelcache.pt"):
+        if not os.path.exists("modelcache.pt"):
             # if we use LoRA, weigths should be bf16 instead of fp8, because merging should be done in bf16
             # the model is too large, so we load the model to cpu. in addition, the .pt file is loaded to cpu anyway
             # on the fly merging will be a solution for this issue for .safetenors files
@@ -685,9 +687,9 @@ def main():
             if args.img_in_txt_in_offloading:
                 logger.info("Enable offloading img_in and txt_in to CPU")
                 transformer.enable_img_in_txt_in_offloading()
-            torch.save(transformer, "/root/modelcache.pt")
+            torch.save(transformer, "modelcache.pt")
         else:
-            transformer = torch.load("/root/modelcache.pt")
+            transformer = torch.load("modelcache.pt")
 
         # load scheduler
         logger.info(f"Loading scheduler")
