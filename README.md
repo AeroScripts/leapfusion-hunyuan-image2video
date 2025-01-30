@@ -25,6 +25,20 @@ Leaving the prompt blank, the model will infer based on the image alone. If you 
 
 # Samples (v2 / 544p)
 
+https://github.com/user-attachments/assets/11998d22-18ab-4d2d-b1f5-f38861f867d1
+
+https://github.com/user-attachments/assets/0c570ff4-1e98-4ba8-900b-7405eb1ee44a
+
+https://github.com/user-attachments/assets/64583b7d-8ca6-4752-be29-3ea4a006c00b
+
+https://github.com/user-attachments/assets/a5ee9c3d-8aa7-455c-99c5-d13e6dac88d0
+
+https://github.com/user-attachments/assets/008ec121-2bcb-4056-8880-8e8c0cb2d6db
+
+
+
+
+
 # Samples (v1 / 320p)
 https://github.com/user-attachments/assets/1410ede0-9d88-4c29-b785-bc934525a0da
 
