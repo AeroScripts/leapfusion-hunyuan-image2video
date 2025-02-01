@@ -1,7 +1,7 @@
 # Leapfusion Hunyuan Image-to-Video
 **V2 update!**: [Fal.ai](https://fal.ai/) helped out providing compute to train a better checkpoint! We've just finished training and are happy to release the v2/544p model. This checkpoint should produce significantly better results when compared to the previous. Thanks again to Fal.ai for helping make this possible!
 
-**Show your support!** You can try HunyuanVideo free with some of our custom spice [here](https://leapfusion.ai/). Supporting LeapFusion enables us to do more open source releases like this in the future!
+**Show your support!** You can try HunyuanVideo free with some of our custom spice here: [LeapReel](https://leapfusion.ai/reel). Supporting LeapFusion enables us to do more open source releases like this in the future!
 
 Training code can be found [Here](https://github.com/AeroScripts/musubi-tuner-img2video).
 
